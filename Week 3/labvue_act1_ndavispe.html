@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- Activity 1 : Simple Survey inDOM -->
+<!-- ndavispe, Lab3, 6/13/25 -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vue3 Activity 1</title>
+        <script src="https://unpkg.com/vue@3"></script>
+    </head>
+    <body>
+        <div id="app">
+
+            <p><strong>Answer me these questions 3:</strong></p>
+
+            <div>
+                <p>1. What is your name?</p>
+                <input v-model="answers.name" type="text">
+            </div>
+
+            <div>
+                <p>2. What is your quest?</p>
+                <input v-model="answers.quest" type="text">
+            </div>
+
+            <div>
+                <p>3. {{ thirdQuestion }}</p>
+                <input v-model="answers.ques3" type="text">
+            </div>
+
+            <p v-if="message"><strong>{{ message }}</strong></p>
+
+            <button @click="resetAnswers">Go again</button>
+
+        </div>
+
+        <script>
+            Vue.createApp({
+                data() {
+                    return {
+                        answers : {
+                            name : "",
+                            quest : "",
+                            ques3 : ""
+                        },
+                        showAltQuestion : false
+                    };
+                },
+                computed : {
+                    thirdQuestion() { // R3. 
+                        return this.showAltQuestions
+                            ? "What is the airspeed velocity of an unladen swallow?"
+                            : "What is your favorite color?";
+                    },
+                    message() {
+                        const { name, quest, ques3 } = this.answers;
+
+                        // R1. 
+                        const hasIDK = [name, quest, ques3].some(ans => ans.trim().toLowerCase() === "idk");
+
+                        // R2. 
+                        const allFilled = [name, quest, ques3].every(ans => ans.trim().length > 0);
+
+                        if (hasIDK) { // R1. 
+                            return "Knight: AAAAAAAAHHHHHHHHHHH!!!";
+                        } else if (allFilled) { // R2. 
+                            return "Bridgekeeper: Alright, off you go then";
+                        } else {
+                            return "";
+                        }
+                    }
+                },
+                methods : {
+                    resetAnswers() { // 'Go again' button
+                        this.answers.name = "";
+                        this.answers.quest = "";
+                        this.answers.ques3 = "";
+                        this.showAltQuestion = !this.showAltQuestion;
+                    }
+                }
+            }).mount('#app');
+        </script>
+    </body>
+</html>

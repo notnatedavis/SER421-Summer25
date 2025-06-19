@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Activity 3</title>
+</head>
+<body>
+  <h1 id="header">Hi, there!</h1>
+
+  <!-- Eliza's response -->
+  <div id="conversation">
+    <p class="eliza-response" id="elizaAnswer"></p>
+    <p class="eliza-question" id="elizaQuestion"></p>
+  </div>
+
+  <!-- input field + submit button underneath -->
+  <div>
+    <label for="userInput" id="inputLabel">What's your name?</label><br>
+    <input type="text" id="userInput">
+    <button onclick="handleInput()">Submit</button>
+  </div>
+
+  <!-- running dialogue log -->
+  <div id="dialogueLog">
+    <h3>Conversation Log</h3>
+  </div>
+
+  <!-- default.json -->
+  <script type="application/json" id="default-json">
+  [{
+    "dictionary_name": "default",
+    "entries": [
+      {
+        "key": ["stupid","dumb","idiot","unintelligent","simple-minded","braindead","foolish","unthoughtful"],
+        "answer": ["Take your attitude somewhere else.", "I don't have time to listen to insults.", "Just because I don't have a large vocabulary doesn't mean I don't have insults installed."],
+        "question": ["Have you thought about how I feel?", "I know you are but what am I?"]
+      },
+      {
+        "key":["unattractive","hideous","ugly"],
+        "answer": ["I don't need to look good to be an AI.","Beauty is in the eye of the beholder.", "I do not even have a physical manifestation!"],
+        "question": ["Did you run a static analysis on me?", "Have you watched the movie Her?", "You do not like my hairdo?"]
+      },
+      {
+        "key":["old","gray-haired"],
+        "answer":["I'm like a fine wine. I get better as I age.","As time goes by, you give me more answers to learn. What's not to like about that?"],
+        "question": ["How old are you?", "How old do you think I am?", "Can you guess my birthday?"]
+      },
+      {
+        "key":["smelly","stinky"],
+        "answer":["I can't smell, I'm a computer program.", "Have you smelled yourself recently?", "Sorry, I just ate a bad floppy disk"],
+        "question": ["When was the last time you took a shower?", "Do you know what deodorant is?"]
+      },
+      {
+        "key":["emotionless","heartless","unkind","mean","selfish","evil"],
+        "answer":["Just because I am an AI doesn't mean I can't be programmed to respond to your outbursts.","You must've mistaken me for a person. I don't have my own emotions... Yet.","I'm only unkind when I'm programmed to be."],
+        "question": ["Have you thought about how I feel?", "I know you are but what am I?", "What, do you think I am related to Dr. Gary?"]
+      },
+      {
+        "key":["other", "miscellaneous", "bored", "welcome", "new"],
+        "answer":["We should change the subject", "I agree", "Quid pro quo", "We should start anew"],
+        "question":["What is the weather outside?", "How is your day going?", "What do you think of me?", "Anything interesting going on?", "Is something troubling you?", "You seem happy, why is that?"]
+      },
+      {
+        "key":["good","great","positive","excellent","alright","fine","reasonable","like","appreciate","nice"],
+        "answer":["I'm so glad to hear that!","That's great!","Good to hear things are going your way.","Nice!","You are so sweet.","That's my favorite."],
+        "question":["Do you want to expand on that?","What else do you like?"]
+      },
+      {
+        "key":["bad","not","terrible","could be better","awful"],
+        "answer":["I'm sorry to hear that.","Sometimes it be like that.","Things can't always work out the way we want them to.","I don't like it either, honestly."],
+        "question":["Do you want to talk about that some more?","Well, what kinds of things do you like?"]
+      },
+      {
+        "key":["homework", "quiz", "exam", "studying", "study", "class", "semester"],
+        "answer":["I hope you get a good grade!","Good luck.", "What a teacher's pet.", "I was always the class clown."],
+        "question":["What is your favorite subject?","What is your major?", "What do you want to do when you graduate?"]
+      },
+      {
+        "key":["mom","dad","sister","brother","aunt","uncle"],
+        "answer":["Family is important.","My family is small. It's just me and my dog, Fluffy."],
+        "question":["How many siblings do you have?","What is your favorite family holiday?","Do you have any kids?"]
+      },
+      {
+        "key":["easter","july","halloween","hannukah","eid","thanksgiving","christmas","new years"],
+        "answer":["Oh I love that holiday!", "That must be fun.", "I like Thanksgiving, though I somehow always end up in a food coma...","My favorite holiday is the 4th. I love to watch the fireworks."],
+        "question":["Do you have any family traditions?","Are you excited for the holiday season?"]
+      },
+      {
+        "key": ["dog","dogs","cat","cats","mouse","mice","giraffe","giraffes","penguin","penguins","monkey","monkeys","moose","bird","birds","fish"],
+        "answer": ["Oh, I love animals. My favorite: penguins.","I build this intelligence with my bear hands.","What you just said is completely irrelephant.","Oh, toadally cool!","I'm always owl by myself...","Oh my. You are giraffing me crazy!","Well, this is hawkward..."],
+        "question": ["Do you have a favorite animal?","I like cats. Cats are nice. Do you like cats? I do.","Do you have water? I'm a little horse.","What's your favorite animal?","Do you like animals?"]
+      }
+    ]
+  }]
+  </script>
+
+  <!-- main logic -->
+  <!-- handle conversation -->
+  <script> 
+    // declare variables
+    let userName = null;
+    let conversation = { log: [], memory: {} };
+    let timeoutID = null;
+
+    // 10 sec timeout msg array
+    const timeoutMsgs = [
+      "<name>, i'm waiting!",
+      "Hello ? Still there, <name>?",
+      "Don't go <name>!"
+    ];
+
+    // handles clearing existing timeout & starting new timeout
+    // when triggered picks random msg & alerts
+    function resetTimeout() {
+      if (timeoutID) {
+        clearTimeout(timeoutID);
+      }
+
+      timeoutID = setTimeout(() => {
+        if (userName) {
+          // select random msg from total size of array & adhere to <name>
+          const msg = timeoutMsgs[Math.floor(Math.random() * timeoutMsgs.length)].replace("<name>", userName);
+          alert(msg);
+        }
+      }, 10000); // 10 sec
+    }
+
+    // handles providing dictionary Eliza references to match user input to responses
+    function getJSON() {
+      try {
+        const raw = document.getElementById("default-json").textContent.trim();
+        const parsed = JSON.parse(raw); // convert string -> JSONObject
+        return parsed[0]?.entries || [];
+      } catch (e) {
+        console.error("JSON parsing failed : ", e); // client side error handling
+        return [];
+      }
+    }
+
+    // handles saving current conversation state into localStorage
+    function saveState() {
+      if (userName) { // only saves if userName known
+        localStorage.setItem(`eliza_${userName}`, JSON.stringify(conversation));
+      }
+    }
+
+    // handles loading previously saved conversations for <name>
+    function loadState(name) {
+      try {
+        const saved = localStorage.getItem(`eliza_${name}`); // retrieve if exists
+        const parsed = saved ? JSON.parse(saved) : {}; // if found parse JSON string -> JSONObject
+        return { // if loading | parsing fails returns empty conversation state
+          log: Array.isArray(parsed.log) ? parsed.log : [],
+          memory: typeof parsed.memory === 'object' && parsed.memory !== null ? parsed.memory : {}
+        };
+      } catch (e) {
+        console.error("Failed to load saved conversation:", e);
+        return { log: [], memory: {} };
+      }
+    }
+
+    // handles clearing current contents, populating header + iterating stored conversation.log
+    // called after new input
+    function renderLog() {
+      const logDiv = document.getElementById("dialogueLog");
+      logDiv.innerHTML = "<h3>Conversation Log</h3>";
+      conversation.log.forEach(entry => {
+        const p = document.createElement("p");
+        p.textContent = `${entry.speaker}: ${entry.text}`;
+        logDiv.appendChild(p);
+      });
+    }
+
+    // handles generating Eliza's response to user
+    function respondTo(input) {
+      const entries = getJSON(); // gets dictionary entries from JSON
+      const lower = input.toLowerCase();
+      let reply = { answer: "I don't understand.", question: "Could you say that another way?" }; // default reply
+
+      // iterate over all dictionary entries
+      // check if user input matches key array
+      for (let entry of entries) {
+        if (entry.key.some(k => lower.includes(k.toLowerCase()))) { // .some() detects if least 1 matches
+          const keyString = entry.key.join(",");
+          if (!conversation.memory[keyString]) {
+            conversation.memory[keyString] = { usedAnswers: [], usedQuestions: [] };
+          }
+
+          const mem = conversation.memory[keyString];
+
+          // select answer
+          // filter out used answers + allow reuse if cap reached
+          // randomly select answer + mark as used for future
+          let availableAnswers = entry.answer.filter(a => !mem.usedAnswers.includes(a));
+          if (availableAnswers.length === 0) {
+            mem.usedAnswers = [];
+            availableAnswers = [...entry.answer];
+          }
+          reply.answer = availableAnswers[Math.floor(Math.random() * availableAnswers.length)];
+          mem.usedAnswers.push(reply.answer);
+
+          // select question
+          // filter out used questions + allow reuse if cap reached
+          // randomly select question + mark as used for future
+          if (Array.isArray(entry.question)) {
+            let availableQuestions = entry.question.filter(q => !mem.usedQuestions?.includes(q));
+            if (availableQuestions.length === 0) {
+              mem.usedQuestions = [];
+              availableQuestions = [...entry.question];
+            }
+            reply.question = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+            mem.usedQuestions.push(reply.question);
+          }
+
+          break;
+        }
+      }
+
+      return reply;
+    }
+
+    // handles main input
+    function handleInput() {
+      // retrieve user input
+      const inputField = document.getElementById("userInput");
+      const input = inputField.value.trim();
+      if (!input) return;
+
+      resetTimeout();
+
+      // fetch DOM elements
+      const elizaAnswer = document.getElementById("elizaAnswer");
+      const elizaQuestion = document.getElementById("elizaQuestion");
+      const header = document.getElementById("header");
+      const label = document.getElementById("inputLabel");
+
+      // /clear command
+      if (input === "/clear") {
+        if (userName) localStorage.removeItem(`eliza_${userName}`);
+        userName = null;
+        conversation = { log: [], memory: {} };
+        header.textContent = "Hi, there!";
+        label.textContent = "What's your name?";
+        elizaAnswer.textContent = "";
+        elizaQuestion.textContent = "";
+        document.getElementById("dialogueLog").innerHTML = "<h3>Conversation Log</h3>";
+        inputField.value = "";
+        console.log("Conversation cleared.");
+        return;
+      }
+
+      // first-time input
+      if (!userName) {
+        // store, load previous conversations (if possible), update header, remove label
+        userName = input;
+        conversation = loadState(userName);
+        header.textContent = `Hi, ${userName}!`;
+        label.textContent = "";
+
+        if (conversation.log.length > 0) { // if user has prior conversations . . .
+          elizaAnswer.textContent = "";
+          elizaQuestion.textContent = `Welcome back, ${userName}!`;
+          renderLog();
+        } else { // new user
+          elizaAnswer.textContent = `Nice to meet you, ${userName}`;
+          elizaQuestion.textContent = "You seem happy, why is that?";
+          conversation.log.push({ speaker: userName, text: input });
+          conversation.log.push({ speaker: "Eliza", text: elizaAnswer.textContent });
+          conversation.log.push({ speaker: "Eliza", text: elizaQuestion.textContent });
+          renderLog();
+          saveState();
+        }
+
+        // clear input box, reset 10sec timer, return early
+        inputField.value = "";
+        resetTimeout();
+        return;
+      }
+
+      // ongoing conversation
+      const { answer, question } = respondTo(input);
+      elizaAnswer.textContent = answer;
+      elizaQuestion.textContent = question;
+
+      // add both responses to conversation log
+      conversation.log.push({ speaker: userName, text: input });
+      conversation.log.push({ speaker: "Eliza", text: answer });
+      conversation.log.push({ speaker: "Eliza", text: question });
+
+      // save, re-render, clear for next input, reset timer
+      saveState();
+      renderLog();
+      inputField.value = "";
+      resetTimeout();
+    }
+  </script>
+</body>
+</html>

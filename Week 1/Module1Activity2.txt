@@ -1,0 +1,39 @@
+
+5/30/2025
+ndavispe@asu.edu
+SER421 Summer 25
+
+Activity 2 : Interaction Design
+
+- (hub task flow) : central hub linking to tasks
+	1. Notion.so [1 screen]
+	2. Workspace (sync options) 
+	3. Centralized Knowledge
+	4. Notion is a good example of a hub as it (initially steep
+	   learning curve) provides the ability to centralize knowledge
+	   per user customization. With the hub having the ability to
+	   link databases, perform operations, and access to files.
+	5. An improvement could look like a tutorial for first time
+	   users.
+
+- (wizard/guide task flow) : linear sequences allow non linear editing
+	1. account.hrblock.com/ [1 screen]
+	2. Walkthrough Q&A w/ included status of progress
+	3. Complicated Tax Filing Accurately
+	4. H&R Block is a perfect example of wizard/guide since it 
+	   provides two essential features key in its process. 1, the 
+	   ability to see current progress till result (useful in 
+	   scenarios that are time intensive) and 2, the ability to 
+           go back and update previous inputs before final submission.
+	5. An improvement could look like an optimization of 
+	   saving/backing up user data (when&where).
+
+- (progressive disclosure) : advanced options revealed via search
+	1. github.com [2 screens]
+	2. Dashboard w/ advanced features buried
+	3. Safety Focused File Management
+	4. Github is a good example of a progressive disclosure as
+	   by default github assumes maximum safety and only through
+	   manual (often times searched) toggeling. Github's advanced
+	   options are revealed upon instance.
+	5. An improvement could look like condensed collapsable GUI.

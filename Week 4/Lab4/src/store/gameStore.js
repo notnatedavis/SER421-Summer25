@@ -40,13 +40,13 @@ export function createGameStore() {
       rowIndex
     }
 
-    console.log('[DEBUG] setting activeQuestion:', {
-      ...question,
-      category,
-      rowIndex
-    })
+    //console.log('[DEBUG] setting activeQuestion:', {
+    //  ...question,
+    //  category,
+    //  rowIndex
+    //})
 
-    console.log('[DEBUG] activeQuestion:', activeQuestion.value)
+    //console.log('[DEBUG] activeQuestion:', activeQuestion.value)
 
     if (!isUsed(category, rowIndex)) {
       usedQuestions.push({ category, row: rowIndex })

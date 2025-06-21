@@ -9,22 +9,18 @@
   <!-- HTML here -->
   <div class="question-input" v-if="active.value">
     <p class="prompt">{{ decodeURIComponent(active.value.category) }} for ${{ active.value.value }} : {{ active.value.question }}</p>
-    <ul class="all-available-answers">
-      <li v-for="(ans, i) in active.value.all_answers" :key="i">{{ ans }}</li>
-    </ul>
-    <input
-      v-model="rawAnswer"
-      @keyup.enter="submit"
-      placeholder="Who/What/Where is ..."
-    />
-    <button @click="submit">Submit</button>
+
+    <!-- show True / False buttons -->
+    <div class="boolean-buttons">
+      <button @click="submit('True')">True</button>
+      <button @click="submit('False')">False</button>
+    </div>
   </div>
 </template>
 
 <script setup>
 // js here
-import { ref, computed, inject } from 'vue'
-import { parseAnswer } from '@/utils/parseAnswer'
+import { computed, inject } from 'vue'
 import { useGameLogic } from '@/composables/useGameLogic'
 
 // grab store
@@ -33,14 +29,9 @@ if (!gameStore) throw new Error('gameStore not provided')
 
 const { validateAnswer } = useGameLogic()
 const active = computed(() => gameStore.activeQuestion)
-const rawAnswer = ref('')
 
-function submit() {
-  if (!rawAnswer.value) { return }
-
-  const cleaned = parseAnswer(rawAnswer.value)
-  validateAnswer(cleaned)
-  rawAnswer.value = ''
+function submit(answer) {
+  validateAnswer(answer)
 }
 </script>
 
@@ -48,5 +39,15 @@ function submit() {
 /* css here */
 .question-input { /* basic layout */}
 .prompt { font-weight: bold; }
-.all-available-answers { margin: 0.5rem 0; }
+.boolean-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.boolean-buttons button {
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+}
 </style>

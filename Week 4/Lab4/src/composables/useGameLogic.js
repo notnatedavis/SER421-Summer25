@@ -13,19 +13,19 @@ export function useGameLogic() {
     const question = gameStore.activeQuestion.value
     const player = gameStore.players[gameStore.currentPlayerIndex.value]
 
-    console.log('[DEBUG] activeQuestion before check:', question)
+    //console.log('[DEBUG] activeQuestion before check:', question)
 
     if (!question || !question.correct_answer) {
-      gameStore.notificationLog.value.push({
-        text: `ERROR: No active question or missing answer.`,
-        correct: false
-      })
+      //gameStore.notificationLog.value.push({
+      //  text: `ERROR: No active question or missing answer.`,
+      //  correct: false
+      //})
       return
     }
 
     const correctAnswer = question.correct_answer
-    console.log('correctAnswer:', correctAnswer)
-    console.log('submitted:', submitted)
+    //console.log('correctAnswer:', correctAnswer)
+    //console.log('submitted:', submitted)
 
     // compare case-insensitive
     const isCorrect = correctAnswer.toLowerCase() === submitted.toLowerCase()

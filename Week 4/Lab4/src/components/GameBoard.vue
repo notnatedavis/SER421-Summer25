@@ -64,7 +64,7 @@ function handleCellClick(category, rowIndex) {
   }
 
   const question = questionsByCategory.value[category][rowIndex]
-  console.log('[DEBUG] selected question:', question)
+  //console.log('[DEBUG] selected question:', question)
   setActiveQuestion(category, rowIndex, question)
 }
 

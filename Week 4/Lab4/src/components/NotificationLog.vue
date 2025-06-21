@@ -8,7 +8,7 @@
 <template>
   <!-- HTML here -->
   <div class="notification-log">
-    <h3>Game Log</h3>
+    <h3>Game Log ({{ log.length }})</h3> <!-- DEBUGGING -->
     <ul>
       <li
         v-for="(entry, i) in log"
@@ -22,13 +22,15 @@
 
 <script setup>
 // js here
-import { inject } from 'vue'
+import { inject, toRefs, computed } from 'vue'
 
 // grab store
 const gameStore = inject('gameStore')
 if (!gameStore) throw new Error('gameStore not provided')
 
-const log = gameStore.notificationLog
+// Use toRefs so Vue tracks it
+//const { notificationLog: log } = toRefs(gameStore)
+const log = computed(() => gameStore.notificationLog.value)
 </script>
 
 <style scoped>

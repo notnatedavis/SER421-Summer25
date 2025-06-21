@@ -9,9 +9,23 @@ export function useGameLogic() {
   const gameStore = inject('gameStore')
   if (!gameStore) { throw new Error('gameStore not provided') } // debugging
 
-  function validateAnswer(correctAnswer, submitted) {
-    const player = gameStore.players[gameStore.currentPlayerIndex]
-    const question = gameStore.activeQuestion
+  function validateAnswer(submitted) {
+    const question = gameStore.activeQuestion.value
+    const player = gameStore.players[gameStore.currentPlayerIndex.value]
+
+    console.log('[DEBUG] activeQuestion before check:', question)
+
+    if (!question || !question.correct_answer) {
+      gameStore.notificationLog.value.push({
+        text: `ERROR: No active question or missing answer.`,
+        correct: false
+      })
+      return
+    }
+
+    const correctAnswer = question.correct_answer
+    console.log('correctAnswer:', correctAnswer)
+    console.log('submitted:', submitted)
 
     // compare case-insensitive
     const isCorrect = correctAnswer.toLowerCase() === submitted.toLowerCase()
@@ -21,7 +35,7 @@ export function useGameLogic() {
     player.score += isCorrect ? delta : -delta
 
     // log update
-    gameStore.notificationLog.push({
+    gameStore.notificationLog.value.push({
       text: `${player.name} answered "${submitted}" - ${isCorrect ? 'Correct' : 'Incorrect'} ${isCorrect ? '+' : '-'}${delta}`,
       correct: isCorrect
     })
@@ -30,12 +44,12 @@ export function useGameLogic() {
     nextTurn()
 
     // clear active question w/ input (should disappear)
-    gameStore.activeQuestion = null
+    gameStore.activeQuestion.value = null
   }
 
   function nextTurn() {
-    gameStore.currentPlayerIndex =
-      (gameStore.currentPlayerIndex + 1) % gameStore.players.length
+    gameStore.currentPlayerIndex.value =
+      (gameStore.currentPlayerIndex.value + 1) % gameStore.players.length
   }
 
   return { validateAnswer, nextTurn }

@@ -25,7 +25,7 @@
           <td
             v-for="(category, colIndex) in categories"
             :key="colIndex"
-            :class="{ used: isCellUsed(category, row) }"
+            :class="{ used: isUsed(category, row) }"
             @click="handleCellClick(category, row)"
           >
             ${{ getCellValue(category, row) }}
@@ -64,6 +64,7 @@ function handleCellClick(category, rowIndex) {
   }
 
   const question = questionsByCategory.value[category][rowIndex]
+  console.log('[DEBUG] selected question:', question)
   setActiveQuestion(category, rowIndex, question)
 }
 

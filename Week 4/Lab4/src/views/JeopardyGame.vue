@@ -4,7 +4,7 @@
 <!-- make sure to call + use useTriviaAPI.js -->
 
 <script setup>
-import { provide, onMounted } from 'vue'
+import { /*computed,*/ provide, onMounted } from 'vue'
 import { createGameStore } from '@/store/gameStore'
 import { useTriviaAPI } from '@/composables/useTriviaAPI'
 
@@ -18,13 +18,18 @@ const gameStore = createGameStore()
 provide('gameStore', gameStore)
 
 // 2. fetch trivia questions
-const { fetchQuestions, questionsByCategory, loading, error } = useTriviaAPI()
+const { fetchQuestions, questionsByCategory, loading, error } = useTriviaAPI(gameStore)
 
 // 3. populate store with questions
 onMounted(async () => {
   await fetchQuestions()
   gameStore.setQuestionsByCategory(questionsByCategory.value)
 })
+
+// track when catagories are populated
+//const dataLoaded = computed(() =>
+//  Object.keys(gameStore.questionsByCategory).length > 0
+//)
 </script>
 
 <template>
@@ -32,31 +37,29 @@ onMounted(async () => {
   <div class="game-container">
     <h1>Jeopardy</h1>
 
-    <!-- loading / error states -->
+    <!-- 1. player stats row -->
+    <div v-if="!loading && !error" class="stats-row">
+      <PlayerScore
+        v-for="p in gameStore.players"
+        :key="p.id"
+        :player="p"
+      />
+    </div>
+
+    <!-- 2. loading / error states -->
     <div v-if="loading">Loading trivia questions . . .</div>
     <div v-else-if="error">{{ error }}</div>
 
-    <!-- main layout -->
-    <div v-else class="board-and-controls">
-
-      <aside class="scores">
-        <PlayerScore
-          v-for="p in gameStore.players"
-          :key="p.id"
-          :player="p"
-        />
-      </aside>
-
-      <section class="board">
-        <GameBoard />
-        <QuestionInput />
-      </section>
-
-      <aside class="log">
-        <NotificationLog />
-      </aside>
-
+    <!-- 3. Jeopardy grid -->
+    <div v-if="!loading && !error" class="board-row">
+      <GameBoard />
     </div>
+
+    <!-- 4. Question Input -->
+    <QuestionInput v-if="!loading && !error" />
+
+    <!-- 5. Game Log -->
+    <NotificationLog />
 
   </div>
 </template>
@@ -68,26 +71,28 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
   padding: 2rem;
+  gap: 1.5rem;
 }
 
-.board-and-controls {
-  display: grid;
-  grid-template-columns: 200px 1fr 300px;
-  gap: 1rem;
+/* 1. stats row : horizontal lay out of 3 players */
+.stats-row {
+  display: flex;
+  gap: 2rem;
+}
+
+/* 3. jeopardy grid */
+.board-row {
   width: 100%;
-  max-width: 1200px;
+  display: flex;
+  justify-content: center;
 }
 
-.scores {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+/* 2. states */
+.loading {
+  font-style: italic;
 }
-
-.board {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.error {
+  color: var(--danger, red);
 }
 
 .log {

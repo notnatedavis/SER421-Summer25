@@ -24,7 +24,7 @@ export function createGameStore() {
   // index into players
   const currentPlayerIndex = ref(0)
   // event log entries : { text, correct }
-  const notificationLog = reactive([])
+  const notificationLog = ref([])
 
   function isUsed(category, rowIndex) {
     return usedQuestions.some((q) => q.category === category && q.row === rowIndex)
@@ -34,9 +34,20 @@ export function createGameStore() {
   }
 
   function setActiveQuestion(category, rowIndex, question) {
-    activeQuestion.value = { category, rowIndex, ...question }
+    activeQuestion.value = {
+      ...question,           // first keep all question fields
+      category,              // then add/override with safe extras
+      rowIndex
+    }
 
-    // mark cell as used
+    console.log('[DEBUG] setting activeQuestion:', {
+      ...question,
+      category,
+      rowIndex
+    })
+
+    console.log('[DEBUG] activeQuestion:', activeQuestion.value)
+
     if (!isUsed(category, rowIndex)) {
       usedQuestions.push({ category, row: rowIndex })
     }

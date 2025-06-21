@@ -13,13 +13,13 @@
   <!-- HTML here -->
   <div class="game-board">
     <table>
-      <thread>
+      <thead>
         <tr>
           <th v-for="(category, index) in categories" :key="index">
             {{ decodeURIComponent(category) }}
           </th>
         </tr>
-      </thread>
+      </thead>
       <tbody>
         <tr v-for="row in questionRows" :key="row">
           <td
@@ -43,6 +43,8 @@ import { computed, inject, toRefs } from 'vue'
 
 // props + global store
 const gameStore = inject('gameStore')
+if (!gameStore) throw new Error('gameStore not provided')
+
 const { questionsByCategory } = toRefs(gameStore)
 const setActiveQuestion = gameStore.setActiveQuestion
 const isUsed = gameStore.isUsed

@@ -28,7 +28,15 @@
             :class="{ used: isUsed(category, row) }"
             @click="handleCellClick(category, row)"
           >
-            ${{ getCellValue(category, row) }}
+            <template v-if="getUsedData(category, row)">
+              <span :style="{ color: getUsedData(category, row).correct ? 'limegreen' : 'crimson' }">
+                {{ getUsedData(category, row).playerName }}
+              </span>
+            </template>
+
+            <template v-else>
+              ${{ getCellValue(category, row) }}
+            </template>
           </td>
         </tr>
       </tbody>
@@ -73,6 +81,16 @@ function getCellValue(category, rowIndex) {
   const question = questionsByCategory.value[category][rowIndex]
   return question ? question.value : ''
 }
+
+// function for rendering cells as used or not
+function getUsedData(category, rowIndex) {
+  const match = gameStore.usedQuestions.find(
+    q => q.category === category && q.row === rowIndex
+  )
+  console.log(`[DEBUG] getUsedData(${category}, ${rowIndex}) =>`, match)
+  return match
+}
+
 </script>
 
 <style scoped>

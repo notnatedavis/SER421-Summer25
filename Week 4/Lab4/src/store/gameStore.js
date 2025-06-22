@@ -39,18 +39,6 @@ export function createGameStore() {
       category,              // then add/override with safe extras
       rowIndex
     }
-
-    //console.log('[DEBUG] setting activeQuestion:', {
-    //  ...question,
-    //  category,
-    //  rowIndex
-    //})
-
-    //console.log('[DEBUG] activeQuestion:', activeQuestion.value)
-
-    if (!isUsed(category, rowIndex)) {
-      usedQuestions.push({ category, row: rowIndex })
-    }
   }
 
   return {

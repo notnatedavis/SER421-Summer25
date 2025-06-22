@@ -16,16 +16,10 @@ export function useGameLogic() {
     //console.log('[DEBUG] activeQuestion before check:', question)
 
     if (!question || !question.correct_answer) {
-      //gameStore.notificationLog.value.push({
-      //  text: `ERROR: No active question or missing answer.`,
-      //  correct: false
-      //})
       return
     }
 
     const correctAnswer = question.correct_answer
-    //console.log('correctAnswer:', correctAnswer)
-    //console.log('submitted:', submitted)
 
     // compare case-insensitive
     const isCorrect = correctAnswer.toLowerCase() === submitted.toLowerCase()
@@ -37,6 +31,13 @@ export function useGameLogic() {
     // log update
     gameStore.notificationLog.value.push({
       text: `${player.name} answered "${submitted}" - ${isCorrect ? 'Correct' : 'Incorrect'} ${isCorrect ? '+' : '-'}${delta}`,
+      correct: isCorrect
+    })
+
+    gameStore.usedQuestions.push({
+      category: question.category,
+      row: question.rowIndex,
+      playerName: player.name,
       correct: isCorrect
     })
 

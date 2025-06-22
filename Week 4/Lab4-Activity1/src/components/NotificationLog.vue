@@ -1,9 +1,6 @@
 <!-- src\components\NotificationLog.vue -->
 
 <!-- handles rolling log of game events -->
-<!-- inject/consume gameStore.notificationLog -->
-<!-- render scrolling list of events , "Player 1 answered 'Paris' - Correct! +200" -->
-<!-- update format/color ? -->
 
 <template>
   <!-- HTML here -->

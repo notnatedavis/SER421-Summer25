@@ -1,7 +1,6 @@
 // src\composables\useGameLogic.js
 
 // handles game state (scoring, player turn, answer validation)
-// define : validateAnswer, nextTurn, updateScore, etc.
 
 import { inject } from 'vue'
 

@@ -1,7 +1,6 @@
 <!-- src\views\JeopardyGame.vue -->
 
 <!-- handles main game page hosting board & players -->
-<!-- make sure to call + use useTriviaAPI.js -->
 
 <script setup>
 import { /*computed,*/ provide, onMounted } from 'vue'

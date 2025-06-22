@@ -1,13 +1,6 @@
 <!-- src\components\GameBoard.vue -->
 
 <!-- handles rendering main Jeopardy table/canvas -->
-<!-- clickable (questions) grid -->
-<!-- top row is categories with questions corresponding to each -->
-<!-- when a cell is clicked set activeQuestion & render QuestionInput.vue below board -->
-<!-- on submit parse answer + validate -->
-<!-- disable already clicked cells , styling clicked cells as 'used' -->
-<!-- each question has a .value field -->
-<!-- presentation only no data fetching -->
 
 <template>
   <!-- HTML here -->

@@ -1,9 +1,6 @@
 <!-- src\components\PlayerScore.vue -->
 
 <!-- handles showing the score & name for each player -->
-<!-- display player scores -->
-<!-- accept 'player' prop w/ {id, name, score} -->
-<!-- display all player's name + score , highlight current player (visual queue) -->
 
 <template>
   <!-- HTML here -->

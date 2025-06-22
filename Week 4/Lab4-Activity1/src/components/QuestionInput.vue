@@ -1,9 +1,6 @@
 <!-- src\components\QuestionInput.vue -->
 
 <!-- handles showing questions + input inline -->
-<!-- display active question text -->
-<!-- provide input field for response, on submit call parseAnswer() + useGameLogic.validateAnswer() -->
-<!-- update gameStore w/ result + NotificationLog update -->
 
 <template>
   <!-- HTML here -->

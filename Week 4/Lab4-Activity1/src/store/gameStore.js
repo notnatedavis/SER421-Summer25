@@ -1,8 +1,6 @@
 // src\store\gameStore.js
 
 // handles game-wide state (provide/inject)
-// gameStore defines : questionsByCategory, setActiveQuestion(category, rowIndex, question), isUsed(category, rowIndex)
-// implement useGameStore()
 
 import { reactive, ref } from 'vue'
 

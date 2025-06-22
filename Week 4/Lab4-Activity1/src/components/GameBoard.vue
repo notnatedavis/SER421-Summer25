@@ -72,7 +72,6 @@ function handleCellClick(category, rowIndex) {
   }
 
   const question = questionsByCategory.value[category][rowIndex]
-  //console.log('[DEBUG] selected question:', question)
   setActiveQuestion(category, rowIndex, question)
 }
 
@@ -87,7 +86,6 @@ function getUsedData(category, rowIndex) {
   const match = gameStore.usedQuestions.find(
     q => q.category === category && q.row === rowIndex
   )
-  console.log(`[DEBUG] getUsedData(${category}, ${rowIndex}) =>`, match)
   return match
 }
 
@@ -106,14 +104,14 @@ th,
 td {
   padding: 1rem;
   border: 2px solid white;
-  background-color: var(--primary, #114b88);
+  background-color: var(--primary, #677b8f);
   color: white;
   cursor: pointer;
   font-weight: bold;
 }
 
 .used {
-  background-color: #555;
+  background-color: #736a6a;
   color: #999;
   cursor: default;
 }

@@ -8,21 +8,21 @@ import { ref } from 'vue'
 
 const API_BASE = 'https://opentdb.com/api.php' //
 const CATEGORY_API = 'https://opentdb.com/api_category.php' // for random category selection
-const QUESTIONS_PER_CATEGORY = 5 // adjustable (construct grid dynamically)
-const NUM_OF_CATEGORIES = 4
+const QUESTIONS_PER_CATEGORY = 5 // adjustable (construct grid dynamically) hard set for Lab4
 
 // sleep helper function
 function sleep(ms) {
   return new Promise(r => setTimeout(r, ms))
 }
 
-export function useTriviaAPI(gameStore) {
+export function useTriviaAPI(gameStore, numCategories = 4) {
   if (!gameStore) throw new Error('gameStore not provided')
 
   // reactive state
   const questionsByCategory = ref({}) // pulls from const
   const loading = ref(false) // state flaging
   const error = ref(null) // debugging
+  const categoriesCount = ref(numCategories)
 
   async function fetchQuestions() {
 
@@ -46,18 +46,18 @@ export function useTriviaAPI(gameStore) {
         cat => !EXCLUDED_CATEGORY_IDS.includes(cat.id)
       )
 
-      // randomly select 4 categories
-      const selected = getRandomCategories(filteredCategories, NUM_OF_CATEGORIES)
+      // randomly select categories
+      const selected = getRandomCategories(filteredCategories, categoriesCount.value)
 
-      // 3) Sequentially fetch each category’s questions
+      // fetch each category’s questions
       for (const cat of selected) {
-        await sleep(5000)
+        await sleep(3000 * categoriesCount.value) // dumb long time
 
         const url = `${API_BASE}?amount=${QUESTIONS_PER_CATEGORY}&category=${cat.id}&type=boolean`
 
         // attempt fetch
         let res = await fetch(url)
-        if (res.status === 429) {
+        if (res.status === 429) { // too many requests
           await sleep(2000)
           res = await fetch(url)
         }
@@ -79,15 +79,23 @@ export function useTriviaAPI(gameStore) {
         }))
       }
     } catch (err) {
-      error.value = 'Failed to load trivia categories/questions.'
+      error.value = 'Failed to load questions.'
       console.error(err)
     } finally {
       loading.value = false
     }
   }
 
+  // refetch w/ new count
+  async function refetch(newCount) {
+    categoriesCount.value = newCount
+    await fetchQuestions()
+    return questionsByCategory.value
+  }
+
   return {
     fetchQuestions,
+    refetch,
     questionsByCategory,
     loading,
     error,

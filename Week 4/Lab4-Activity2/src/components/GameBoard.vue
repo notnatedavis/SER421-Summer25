@@ -2,12 +2,6 @@
 
 <!-- handles rendering main Jeopardy table/canvas -->
 <!-- clickable (questions) grid -->
-<!-- top row is categories with questions corresponding to each -->
-<!-- when a cell is clicked set activeQuestion & render QuestionInput.vue below board -->
-<!-- on submit parse answer + validate -->
-<!-- disable already clicked cells , styling clicked cells as 'used' -->
-<!-- each question has a .value field -->
-<!-- presentation only no data fetching -->
 
 <template>
   <!-- HTML here -->
@@ -72,8 +66,8 @@ function handleCellClick(category, rowIndex) {
   }
 
   const question = questionsByCategory.value[category][rowIndex]
-  //console.log('[DEBUG] selected question:', question)
-  setActiveQuestion(category, rowIndex, question)
+  const isDouble = Math.random() < 0.10 // 10% chance of 'Double Jeopardy'
+  setActiveQuestion(category, rowIndex, question, isDouble)
 }
 
 // function for retrieving associated value of cell
@@ -87,7 +81,6 @@ function getUsedData(category, rowIndex) {
   const match = gameStore.usedQuestions.find(
     q => q.category === category && q.row === rowIndex
   )
-  console.log(`[DEBUG] getUsedData(${category}, ${rowIndex}) =>`, match)
   return match
 }
 
@@ -95,7 +88,6 @@ function getUsedData(category, rowIndex) {
 
 <style scoped>
 /* css here */
-
 .game-board {
   margin: 2rem auto;
   max-width: 800px;

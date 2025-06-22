@@ -57,7 +57,7 @@ export function useTriviaAPI(gameStore) {
 
         // attempt fetch
         let res = await fetch(url)
-        if (res.status === 429) {
+        if (res.status === 429) { // error from too many requests
           await sleep(2000)
           res = await fetch(url)
         }
@@ -67,7 +67,7 @@ export function useTriviaAPI(gameStore) {
           continue
         }
 
-        // sanitize & assign dollar values
+        // sanitize & assign values
         questionsByCategory.value[cat.name] = data.results.map((q, i) => ({
           category:       q.category,
           type:           q.type,
@@ -79,7 +79,7 @@ export function useTriviaAPI(gameStore) {
         }))
       }
     } catch (err) {
-      error.value = 'Failed to load trivia categories/questions.'
+      error.value = 'Failed to load questions.'
       console.error(err)
     } finally {
       loading.value = false

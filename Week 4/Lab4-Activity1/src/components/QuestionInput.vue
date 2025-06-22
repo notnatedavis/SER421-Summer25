@@ -37,7 +37,6 @@ function submit(answer) {
 
 <style scoped>
 /* css here */
-.question-input { /* basic layout */}
 .prompt { font-weight: bold; }
 .boolean-buttons {
   display: flex;
@@ -45,7 +44,6 @@ function submit(answer) {
   gap: 1rem;
   margin-top: 1rem;
 }
-
 .boolean-buttons button {
   padding: 0.5rem 1rem;
   font-weight: bold;

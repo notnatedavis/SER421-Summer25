@@ -1,12 +1,10 @@
 // src\store\gameStore.js
 
 // handles game-wide state (provide/inject)
-// gameStore defines : questionsByCategory, setActiveQuestion(category, rowIndex, question), isUsed(category, rowIndex)
-// implement useGameStore()
 
 import { reactive, ref } from 'vue'
 
-export function createGameStore() {
+export function createGameStore(initialPlayerCount = 3) {
   // fetched questions
   const questionsByCategory = ref({})
   // currently selected questions
@@ -15,11 +13,13 @@ export function createGameStore() {
   const usedQuestions = reactive([])
 
   // players : id, name, score
-  const players = reactive([
-    { id: 1, name: 'Player 1', score: 0 },
-    { id: 2, name: 'Player 2', score: 0 },
-    { id: 3, name: 'Player 3', score: 0 }
-  ])
+  const players = reactive(
+    Array.from({ length: initialPlayerCount }, (_, i) => ({
+      id: i + 1,
+      name: `Player ${i + 1}`,
+      score: 0
+    }))
+  )
 
   // index into players
   const currentPlayerIndex = ref(0)
@@ -33,11 +33,13 @@ export function createGameStore() {
     questionsByCategory.value = data
   }
 
-  function setActiveQuestion(category, rowIndex, question) {
+  function setActiveQuestion(category, rowIndex, question, isDouble = false) {
     activeQuestion.value = {
-      ...question,           // first keep all question fields
-      category,              // then add/override with safe extras
-      rowIndex
+      ...question,
+      category,
+      rowIndex,
+      isDouble,
+      wager: null
     }
   }
 
@@ -53,6 +55,6 @@ export function createGameStore() {
     // actions
     setQuestionsByCategory,
     setActiveQuestion,
-    isUsed,
+    isUsed
   }
 }

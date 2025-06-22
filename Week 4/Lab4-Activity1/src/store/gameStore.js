@@ -35,8 +35,8 @@ export function createGameStore() {
 
   function setActiveQuestion(category, rowIndex, question) {
     activeQuestion.value = {
-      ...question,           // first keep all question fields
-      category,              // then add/override with safe extras
+      ...question,
+      category,
       rowIndex
     }
   }

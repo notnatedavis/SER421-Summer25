@@ -1,7 +1,6 @@
 // src\composables\useGameLogic.js
 
 // handles game state (scoring, player turn, answer validation)
-// define : validateAnswer, nextTurn, updateScore, etc.
 
 import { inject } from 'vue'
 
@@ -13,20 +12,16 @@ export function useGameLogic() {
     const question = gameStore.activeQuestion.value
     const player = gameStore.players[gameStore.currentPlayerIndex.value]
 
-    //console.log('[DEBUG] activeQuestion before check:', question)
-
     if (!question || !question.correct_answer) {
       return
     }
 
-    const correctAnswer = question.correct_answer
+    // determine stake
+    const stake = question.isDouble ? (question.wager != null ? question.wager : question.value) : question.value
 
-    // compare case-insensitive
-    const isCorrect = correctAnswer.toLowerCase() === submitted.toLowerCase()
-    const delta = question.value
+    const isCorrect = String(question.correct_answer).toLowerCase() === submitted.toLowerCase()
 
-    // update score
-    player.score += isCorrect ? delta : -delta
+    player.score += isCorrect ? stake : -stake
 
     // log update
     gameStore.notificationLog.value.push({
@@ -41,11 +36,35 @@ export function useGameLogic() {
       correct: isCorrect
     })
 
+    checkEndGame()
+
     // advance turn
     nextTurn()
 
     // clear active question w/ input (should disappear)
     gameStore.activeQuestion.value = null
+  }
+
+  function checkEndGame() {
+    const totalQuestions =
+      Object.values(gameStore.questionsByCategory.value)
+        .reduce((sum, qList) => sum + qList.length, 0)
+
+    if (gameStore.usedQuestions.length >= totalQuestions) {
+      // find highest score
+      const maxScore = Math.max(...gameStore.players.map(p => p.score))
+      const winners = gameStore.players.filter(p => p.score === maxScore)
+      const winnerNames = winners.map(w => w.name).join(', ')
+
+      // clear all previous notifications
+      gameStore.notificationLog.value.splice(0)
+
+      // push winner
+      gameStore.notificationLog.value.push({
+        text: `Game Over! Winner: ${winnerNames} with ${maxScore} points.`,
+        correct: true
+      })
+    }
   }
 
   function nextTurn() {

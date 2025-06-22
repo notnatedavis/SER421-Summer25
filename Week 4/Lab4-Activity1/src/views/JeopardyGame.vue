@@ -26,10 +26,6 @@ onMounted(async () => {
   gameStore.setQuestionsByCategory(questionsByCategory.value)
 })
 
-// track when catagories are populated
-//const dataLoaded = computed(() =>
-//  Object.keys(gameStore.questionsByCategory).length > 0
-//)
 </script>
 
 <template>
@@ -74,7 +70,7 @@ onMounted(async () => {
   gap: 1.5rem;
 }
 
-/* 1. stats row : horizontal lay out of 3 players */
+/* 1. stats row : horizontal lay out of players */
 .stats-row {
   display: flex;
   gap: 2rem;

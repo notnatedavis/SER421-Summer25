@@ -2,6 +2,8 @@ package com.example.graphqlserver.controller;
 
 import com.example.graphqlserver.dto.input.AddAuthorInput;
 import com.example.graphqlserver.dto.output.AddAuthorPayload;
+import com.example.graphqlserver.dto.input.UpdateAuthorFirstNameInput; // new import
+import com.example.graphqlserver.dto.output.UpdateAuthorFirstNamePayload; // new import
 import com.example.graphqlserver.model.Author;
 import com.example.graphqlserver.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class AuthorController {
     }
 
     @QueryMapping
-    public  Author authorById(@Argument("id") int id) {
+    public Author authorById(@Argument("id") int id) {
         return authorRepository.getAuthorById(id);
     }
 
@@ -37,5 +39,37 @@ public class AuthorController {
         var author = authorRepository.save(input.firstName(), input.lastName());
         var out = new AddAuthorPayload(author);
         return out;
+    }
+
+    // Task 2 , list of Author(s) based on lastName
+    @QueryMapping
+    public List<Author> authorsByLastName(@Argument String lastName) {
+        return authorRepository.findByLastName(lastName);
+    }
+
+    // Task 3 , update an Author's firstName based on Author's Id
+    @MutationMapping
+    public UpdateAuthorFirstNamePayload updateAuthorFirstName(@Argument UpdateAuthorFirstNameInput input) {
+        
+        Author a = authorRepository.getAuthorById(Integer.parseInt(input.authorId()));
+
+        if (a == null) {
+            return new UpdateAuthorFirstNamePayload(null); 
+        }
+
+        // store old firstName in a temp, set new firstName , save + return old temp
+        String oldName = a.getFirstName();
+        a.setFirstName(input.newFirstName());
+        authorRepository.save(a.getFirstName(), a.getLastName());
+        return new UpdateAuthorFirstNamePayload(oldName);
+    }
+
+    // Task 5 , list of all Book title(s) by Author(s) w/ given firstName
+    @QueryMapping
+    public List<String> bookTitlesByAuthorFirstName(@Argument String firstName) {
+        return authorRepository.findByFirstName(firstName).stream()
+            .flatMap(author -> author.getBooks().stream())
+            .map(book -> book.getTitle())
+            .toList();
     }
 }

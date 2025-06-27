@@ -7,8 +7,8 @@ import java.util.List;
 public class Author {
 
     private int id;
-    private final String firstName;
-
+    private String firstName; // had to remove 'final'
+    private String lastName; // had to remove 'final'
     private List<Book> books = new ArrayList<>();
 
     public Author(int id, String firstName, String lastName, List<Book> books) {
@@ -17,8 +17,6 @@ public class Author {
         this.lastName = lastName;
         this.books = books;
     }
-
-    private final String lastName;
 
     public int getId() {
         return id;
@@ -32,6 +30,11 @@ public class Author {
         return firstName;
     }
 
+    // new method for setting firstName
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -43,6 +46,4 @@ public class Author {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
-
-
 }

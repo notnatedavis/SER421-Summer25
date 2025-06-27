@@ -50,4 +50,29 @@ public class BookRepository {
         return bookList;
     }
 
+    // new method
+    public List<Book> findByAuthorId(Integer authorId) {
+        List<Book> result = new ArrayList<>();
+        for (Book book : dummyBooks) {
+            if (Integer.valueOf(book.getAuthorId()).equals(authorId)) {
+                result.add(book);
+            }
+        }
+        return result;
+    }
+
+    // new method
+    public boolean existsById(String isbn) {
+        for (Book book : dummyBooks) {
+            if (book.getIsbn().equals(isbn)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // new method
+    public void deleteById(String isbn) {
+        dummyBooks.removeIf(book -> book.getIsbn().equals(isbn));
+    }
 }

@@ -41,4 +41,26 @@ public class AuthorRepository {
         dummyAuthors.add(newAuthor);
         return newAuthor;
     }
+
+    // new method
+    public List<Author> findByLastName(String lastName) {
+        List<Author> result = new ArrayList<>();
+        for (Author author : dummyAuthors) {
+            if (author.getLastName().equals(lastName)) {
+                result.add(author);
+            }
+        }
+        return result;
+    }
+
+    // new method
+    public List<Author> findByFirstName(String firstName) {
+        List<Author> result = new ArrayList<>();
+        for (Author author : dummyAuthors) {
+            if (author.getFirstName().equals(firstName)) {
+                result.add(author);
+            }
+        }
+        return result;
+    }
 }

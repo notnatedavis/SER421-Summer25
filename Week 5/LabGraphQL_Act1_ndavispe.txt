@@ -1,0 +1,52 @@
+ndavispe
+6/27/25
+SER421-Summer25
+Activity 1
+
+### Response 1
+
+query Query1 {
+
+  company {
+    name
+    founded
+    coo
+    cto
+    employees
+  }
+}
+
+### Response 2
+
+query Query2 {
+  launchesPast {
+
+    launch_date_local
+    links {
+      article_link
+    }
+
+    rocket {
+      rocket_name
+      rocket_type
+    }
+  }
+}
+
+### Response 3
+
+query Query3 {
+  
+  roadster {
+    details
+  }
+
+  rockets {
+    name
+    boosters
+    company
+    landing_legs {
+      material
+    }
+  }
+}

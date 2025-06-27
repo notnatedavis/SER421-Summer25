@@ -8,6 +8,8 @@
 *.bmp
 *.idea
 *.idea/
+*.DS_Store
+*.DS_Store/
 
 # Object files
 *.o

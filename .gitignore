@@ -1,4 +1,7 @@
+# .gitignore universal template
 # update / review to make sure .gitignore works
+
+# important keep
 !/gradlew
 !/gradlew.bat
 !/gradle/wrapper/gradle-wrapper.jar
@@ -14,6 +17,8 @@
 *.idea/
 *.DS_Store
 *.DS_Store/
+*.bin/
+*bin/
 
 # Object files
 *.o

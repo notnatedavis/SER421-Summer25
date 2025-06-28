@@ -1,21 +1,19 @@
 /*
  * SER421-Summer25
  * Lab 6 , Activity 3
- * ndavispe , 6/27/25
+ * ndavispe , 6/28/25
  * 
  * src\main\java\com\example\graphqlserver\controller\AuthorController.java
  * [PURPOSE_OF_FILE_IN_RELATION]
  */
 package com.example.graphqlserver.controller;
 
+// imports
 import org.springframework.stereotype.Controller;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.Argument;
 import java.util.List;
-
-// import com.example.graphqlserver.dto.input.AddBookInput;
-// import com.example.graphqlserver.dto.output.AddBookPayload;
 import com.example.graphqlserver.services.AuthorService;
 import com.example.graphqlserver.model.Author;
 import com.example.graphqlserver.model.Book;
@@ -23,9 +21,6 @@ import com.example.graphqlserver.dto.input.AddAuthorInput;
 import com.example.graphqlserver.dto.output.AddAuthorPayload;
 import com.example.graphqlserver.dto.input.UpdateAuthorFirstNameInput;
 import com.example.graphqlserver.dto.output.UpdateAuthorFirstNamePayload;
-
-// import com.example.graphqlserver.dto.input.DeleteBookByISBNInput;
-// import com.example.graphqlserver.dto.output.DeleteBookByISBNPayload;
 
 @Controller
 public class AuthorController {

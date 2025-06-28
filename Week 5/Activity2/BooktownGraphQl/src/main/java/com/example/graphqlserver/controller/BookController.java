@@ -1,5 +1,14 @@
+/*
+ * SER421-Summer25
+ * Lab 6 , Activity 2
+ * ndavispe , 6/28/25
+ * 
+ * src\main\java\com\example\graphqlserver\controller\BookController.java
+ * [PURPOSE_OF_FILE_IN_RELATION]
+ */
 package com.example.graphqlserver.controller;
 
+// imports
 import com.example.graphqlserver.dto.input.AddBookInput;
 import com.example.graphqlserver.dto.output.AddBookPayload;
 import com.example.graphqlserver.dto.input.DeleteBookByISBNInput; // new import

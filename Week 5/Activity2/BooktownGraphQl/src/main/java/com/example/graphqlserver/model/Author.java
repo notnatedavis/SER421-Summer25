@@ -1,6 +1,14 @@
+/*
+ * SER421-Summer25
+ * Lab 6 , Activity 2
+ * ndavispe , 6/28/25
+ * 
+ * src\main\java\com\example\graphqlserver\model\Author.java
+ * [PURPOSE_OF_FILE_IN_RELATION]
+ */
 package com.example.graphqlserver.model;
 
-
+// imports
 import java.util.ArrayList;
 import java.util.List;
 

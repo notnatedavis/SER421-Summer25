@@ -1,6 +1,15 @@
+/*
+ * SER421-Summer25
+ * Lab 6 , Activity 3
+ * ndavispe , 6/28/25
+ * 
+ * src\main\java\com\example\graphqlserver\model\Author.java
+ * [PURPOSE_OF_FILE_IN_RELATION]
+ */
 package com.example.graphqlserver.model;
 
-import jakarta.persistence.*; // validate this works
+// imports
+import jakarta.persistence.*;
 
 import java.util.List;
 

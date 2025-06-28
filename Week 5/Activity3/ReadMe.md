@@ -1,6 +1,7 @@
 # Lab 5 (Activity3 ReadMe.md)
 
-### Activity 3
-- with same starter code as A2...
-- remove static initialization blocks in favor of a Spring JPA-enabled database
-- must use the built-in H2 database (same as example for grocerydemojpa) (https://github.com/kgary/ser421public/tree/master/serverside/Spring/grocerydemojpa)
+### Replication Steps
+- 1. `gradle build`
+- 2. `./gradlew bootRun`
+- 3. travel to the link `http://localhost:8080/h2-console`
+- 4. fill in : [JDBC URL to `jdbc:h2:mem:BooktownGraphQl` , username to `username` , and password to `password`] then hit connect

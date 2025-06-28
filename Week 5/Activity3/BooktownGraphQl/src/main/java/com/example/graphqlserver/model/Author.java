@@ -1,30 +1,43 @@
 package com.example.graphqlserver.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.*; // validate this works
 
 import java.util.List;
 
+import javax.annotation.processing.Generated;
+
+@Entity
+@Table(name = "authors")
 public class Author {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    private int id;
-    private final String firstName;
+    @Column(nullable = false)
+    private String firstName;
 
-    private List<Book> books = new ArrayList<>();
+    @Column(nullable = false)
+    private String lastName;
 
-    public Author(int id, String firstName, String lastName, List<Book> books) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.books = books;
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Book> books;
+
+    public Author() {
+        // no arg constructor
     }
 
-    private final String lastName;
+    public Author(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
-    public int getId() {
+    // getters & setters
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -32,8 +45,16 @@ public class Author {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public List<Book> getBooks() {
@@ -43,6 +64,4 @@ public class Author {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
-
-
 }

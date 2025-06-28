@@ -1,5 +1,14 @@
+/*
+ * SER421-Summer25
+ * Lab 6 , Activity 2
+ * ndavispe , 6/27/25
+ * 
+ * src\main\java\com\example\graphqlserver\controller\AuthorController.java
+ * [PURPOSE_OF_FILE_IN_RELATION]
+ */
 package com.example.graphqlserver.controller;
 
+// imports
 import com.example.graphqlserver.dto.input.AddAuthorInput;
 import com.example.graphqlserver.dto.output.AddAuthorPayload;
 import com.example.graphqlserver.dto.input.UpdateAuthorFirstNameInput; // new import
@@ -67,6 +76,7 @@ public class AuthorController {
     // Task 5 , list of all Book title(s) by Author(s) w/ given firstName
     @QueryMapping
     public List<String> bookTitlesByAuthorFirstName(@Argument String firstName) {
+        // collect all book titles of author from firstName via .stream
         return authorRepository.findByFirstName(firstName).stream()
             .flatMap(author -> author.getBooks().stream())
             .map(book -> book.getTitle())

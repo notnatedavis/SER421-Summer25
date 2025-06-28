@@ -1,4 +1,8 @@
 # update / review to make sure .gitignore works
+!/gradlew
+!/gradlew.bat
+!/gradle/wrapper/gradle-wrapper.jar
+!/gradle/wrapper/gradle-wrapper.properties
 
 # Prerequisites (Project Specific)
 *.d

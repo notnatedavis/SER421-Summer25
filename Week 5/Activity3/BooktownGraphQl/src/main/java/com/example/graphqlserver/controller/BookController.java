@@ -1,6 +1,14 @@
-// src\main\java\com\example\graphqlserver\controller\BookController.java
+/*
+ * SER421-Summer25
+ * Lab 6 , Activity 2
+ * ndavispe , 6/27/25
+ * 
+ * src\main\java\com\example\graphqlserver\controller\BookController.java
+ * [PURPOSE_OF_FILE_IN_RELATION]
+ */
 package com.example.graphqlserver.controller;
 
+// imports
 import org.springframework.stereotype.Controller;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -43,9 +51,10 @@ public class BookController {
     }
 
     @MutationMapping
-    public DeleteBookByISBNPayload deleteBookByISBN(
-             @Argument DeleteBookByISBNInput in) {
+    public DeleteBookByISBNPayload deleteBookByISBN(@Argument DeleteBookByISBNInput in) {
+        
         boolean existed = bookSvc.existsByIsbn(in.isbn());
+
         if (existed) {
             bookSvc.deleteByIsbn(in.isbn());
             return new DeleteBookByISBNPayload(in.isbn());

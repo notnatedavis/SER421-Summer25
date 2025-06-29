@@ -1,0 +1,135 @@
+# SER421-Summer25
+# Lab 6 , Activity 2
+# ndavispe , 6/28/25 
+# src\main\resources\graphql\schema.graphqls
+# [PURPOSE_OF_FILE_IN_RELATION]
+
+# The root Query type defines the entry points for querying data.
+type Query {
+    # Fetch a list of authors.
+    authors: [Author]
+
+    # Fetch an author by their unique ID.
+    authorById(id: Int): Author
+
+    # Fetch a list of books.
+    books: [Book]
+
+    # Fetch a book by its ISBN (International Standard Book Number).
+    bookByISBN(isbn: String): Book
+
+    ####### Activity 2 , get APIs #######
+
+    # Task 1 , list of Book(s) based on authorId
+    booksByAuthorId(authorId: Int!): [Book]
+
+    # Task 2 , list of Author(s) based on lastName
+    authorsByLastName(lastName: String!): [Author]
+
+    # Task 5 , list of all Book title(s) by Author(s) w/ given firstName
+    bookTitlesByAuthorFirstName(firstName: String!): [String]
+}
+
+# src\main\java\com\example\graphqlserver\model\Book.java
+# Represents a book in the system.
+type Book {
+    # The ISBN (International Standard Book Number) of the book.
+    isbn: String
+
+    # The title of the book.
+    title: String
+
+    # The unique ID of the author of the book.
+    authorId: ID
+}
+
+# src\main\java\com\example\graphqlserver\model\Author.java
+# Represents an author who writes books.
+type Author {
+    # The unique ID of the author.
+    id: ID
+
+    # The first name of the author.
+    firstName: String
+
+    # The last name of the author.
+    lastName: String
+
+    # A list of books written by the author.
+    books: [Book]
+}
+
+# src\main\java\com\example\graphqlserver\dto\input\AddAuthorInput.java
+# Input type for adding a new author.
+input AddAuthorInput {
+    # The first name of the author.
+    firstName: String
+
+    # The last name of the author.
+    lastName: String
+}
+
+# src\main\java\com\example\graphqlserver\dto\input\AddBookInput.java
+# Input type for adding a new book.
+input AddBookInput {
+    # The ISBN (International Standard Book Number) of the book.
+    isbn: String
+
+    # The title of the book.
+    title: String
+
+    # The unique ID of the author of the book.
+    authorId: ID
+}
+
+# src\main\java\com\example\graphqlserver\dto\output\AddAuthorPayload.java
+# Payload returned after successfully adding an author.
+type AddAuthorPayload {
+    # The newly added author.
+    author: Author
+}
+
+# src\main\java\com\example\graphqlserver\dto\output\AddBookPayload.java
+# Payload returned after successfully adding a book.
+type AddBookPayload {
+    # The newly added book.
+    book: Book
+}
+
+# The root Mutation type defines the entry points for mutating data.
+type Mutation {
+    # Add a new author to the system.
+    addAuthor(input: AddAuthorInput): AddAuthorPayload
+
+    # Add a new book to the system.
+    addBook(input: AddBookInput): AddBookPayload
+
+    ####### Activity 2 , mutating APIs #######
+
+    # Task 3 , update an Author's firstName based on Author's Id
+    # if (successful) { return old firstName } else { return null }
+    updateAuthorFirstName(input: UpdateAuthorFirstNameInput): UpdateAuthorFirstNamePayload
+
+    # Task 4 , delete a Book given it's ISBN
+    # if (successful) { return deleted ISBN } else { return null }
+    deleteBookByISBN(input: DeleteBookByISBNInput): DeleteBookByISBNPayload 
+}
+
+####### Activity 2 , new input + payload types #######
+
+# Task 3 , input + payload
+input UpdateAuthorFirstNameInput {
+    authorId: Int!
+    newFirstName: String!
+}
+type UpdateAuthorFirstNamePayload {
+    oldFirstName: String
+}
+
+# Task 4 , input + payload
+input DeleteBookByISBNInput {
+    isbn: String!
+}
+type DeleteBookByISBNPayload {
+    isbn: String
+}

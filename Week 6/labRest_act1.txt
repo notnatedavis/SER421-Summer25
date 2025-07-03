@@ -19,4 +19,4 @@ curl https://api.github.com/repos/kgary/ser421public/branches
   "status": "403"
 }
 
-since I am not a collaborator my alternative option would be to for the repo and create an issue to leave a comment on
+since I am not a collaborator my alternative option would be to fork the repo and create an issue to leave a comment on

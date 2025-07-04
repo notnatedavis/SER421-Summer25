@@ -1,0 +1,546 @@
+{
+  "info": {
+    "name": "Survey API Test Suite (10 Pass / 10 Fail)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "\u2705 POST /api/questions - valid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/questions",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "questions"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"text\": \"What is 2+2?\", \"type\": \"MCSA\", \"surveyId\": 1}"
+        }
+      }
+    },
+    {
+      "name": "\u274c POST /api/questions - invalid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/questions",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "questions"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"text\": \"\", \"type\": \"INVALID\", \"surveyId\": \"abc\"}"
+        }
+      }
+    },
+    {
+      "name": "\u2705 GET /api/surveys - valid",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/surveys",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "surveys"
+          ]
+        }
+      }
+    },
+    {
+      "name": "\u274c GET /api/surveys - invalid",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/surveys",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "surveys"
+          ]
+        }
+      }
+    },
+    {
+      "name": "\u2705 GET /api/surveys/xyz - valid",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/surveys/xyz",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "surveys",
+            "xyz"
+          ]
+        }
+      }
+    },
+    {
+      "name": "\u274c GET /api/surveys/xyz - invalid",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/surveys/xyz",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "surveys",
+            "xyz"
+          ]
+        }
+      }
+    },
+    {
+      "name": "\u2705 POST /api/answers - valid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/answers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "answers"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"response\": \"4\", \"questionId\": 1}"
+        }
+      }
+    },
+    {
+      "name": "\u274c POST /api/answers - invalid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/answers",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "answers"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"response\": \"\", \"questionId\": null}"
+        }
+      }
+    },
+    {
+      "name": "\u2705 GET /api/items - valid",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/items",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "items"
+          ]
+        }
+      }
+    },
+    {
+      "name": "\u274c GET /api/items - invalid",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/items",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "items"
+          ]
+        }
+      }
+    },
+    {
+      "name": "\u2705 GET /api/items/999 - valid",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/items/999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "items",
+            "999"
+          ]
+        }
+      }
+    },
+    {
+      "name": "\u274c GET /api/items/999 - invalid",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/items/999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "items",
+            "999"
+          ]
+        }
+      }
+    },
+    {
+      "name": "\u2705 POST /api/items - valid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/items",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "items"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"questionStem\": \"Choose the correct option\", \"type\": \"MCSA\", \"candidates\": [\"A\", \"B\", \"C\"], \"correctAnswer\": \"A\"}"
+        }
+      }
+    },
+    {
+      "name": "\u274c POST /api/items - invalid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/items",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "items"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"questionStem\": \"\", \"type\": \"UNKNOWN\", \"candidates\": [], \"correctAnswer\": \"\"}"
+        }
+      }
+    },
+    {
+      "name": "\u2705 POST /api/surveys - valid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/surveys",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "surveys"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"Math Quiz\", \"description\": \"Basic math questions\"}"
+        }
+      }
+    },
+    {
+      "name": "\u274c POST /api/surveys - invalid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/surveys",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "surveys"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"title\": \"\", \"description\": 123}"
+        }
+      }
+    },
+    {
+      "name": "\u2705 POST /api/instances - valid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/instances",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "instances"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"surveyId\": 1, \"userId\": 10}"
+        }
+      }
+    },
+    {
+      "name": "\u274c POST /api/instances - invalid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/instances",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "instances"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"surveyId\": \"not a number\", \"userId\": null}"
+        }
+      }
+    },
+    {
+      "name": "\u2705 POST /api/instances/1/items/1 - valid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/instances/1/items/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "instances",
+            "1",
+            "items",
+            "1"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"response\": \"Correct\"}"
+        }
+      }
+    },
+    {
+      "name": "\u274c POST /api/instances/1/items/1 - invalid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/instances/1/items/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "instances",
+            "1",
+            "items",
+            "1"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"response\": null}"
+        }
+      }
+    }
+  ]
+}

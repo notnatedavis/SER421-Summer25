@@ -4,7 +4,7 @@
  * ndavispe , 7/4/25
  * 
  * src\main\java\com\example\surveyapi\controller\SurveyInstanceController.java
- * UPDATE
+ * REST Controller for Survey Instance
  */
 package com.example.surveyapi.controller;
 
@@ -12,20 +12,12 @@ package com.example.surveyapi.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import jakarta.validation.Valid;
-
 import com.example.surveyapi.service.SurveyInstanceService;
-
-import com.example.surveyapi.dto.AnswerRequest;
-import com.example.surveyapi.dto.ApiResponse;
-import com.example.surveyapi.dto.CreateInstanceRequest;
-import com.example.surveyapi.dto.SurveyInstanceDTO;
 import com.example.surveyapi.model.SurveyInstance;
-
 import com.example.surveyapi.dto.*;
 import com.example.surveyapi.model.SurveyInstanceState;
 

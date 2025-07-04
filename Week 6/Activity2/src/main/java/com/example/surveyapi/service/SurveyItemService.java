@@ -11,10 +11,8 @@ package com.example.surveyapi.service;
 // imports
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 import java.util.Optional;
-
 import com.example.surveyapi.model.SurveyItem;
 import com.example.surveyapi.repository.SurveyItemRepository;
 

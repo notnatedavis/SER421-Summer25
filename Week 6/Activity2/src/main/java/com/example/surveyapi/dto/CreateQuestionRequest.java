@@ -11,7 +11,6 @@ package com.example.surveyapi.dto;
 // imports
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import com.example.surveyapi.model.QuestionType;
 
 public class CreateQuestionRequest {

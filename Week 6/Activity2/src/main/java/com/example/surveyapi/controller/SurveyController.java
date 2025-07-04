@@ -12,20 +12,13 @@ package com.example.surveyapi.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import jakarta.validation.Valid;
-
 import com.example.surveyapi.model.Survey;
 import com.example.surveyapi.dto.*;
 import com.example.surveyapi.service.SurveyService;
-
-import com.example.surveyapi.dto.AddItemRequest;
-import com.example.surveyapi.dto.ApiResponse;
-import com.example.surveyapi.dto.CreateSurveyRequest;
-import com.example.surveyapi.dto.SurveyDTO;
 
 @RestController
 @RequestMapping("/api/surveys")

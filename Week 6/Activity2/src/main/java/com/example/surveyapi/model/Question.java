@@ -15,6 +15,7 @@ import jakarta.persistence.*;
 
 @Entity
 public class Question {
+
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,8 +37,8 @@ public class Question {
     protected Question() {}            // JPA
     
     public Question(String text, QuestionType type, Survey survey) {
-        this.text   = text;
-        this.type   = type;
+        this.text = text;
+        this.type = type;
         this.survey = survey;
     }
 

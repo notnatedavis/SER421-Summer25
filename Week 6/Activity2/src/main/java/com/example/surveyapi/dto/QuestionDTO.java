@@ -10,7 +10,7 @@ package com.example.surveyapi.dto;
 
 // imports
 import com.example.surveyapi.model.Question;
-import com.example.surveyapi.model.Survey;
+import com.example.surveyapi.model.Survey; // not used ?
 
 public class QuestionDTO {
 

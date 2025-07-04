@@ -14,11 +14,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany; // not used
+import jakarta.persistence.CascadeType; // not used
 
 @Entity
 public class Answer {
+    
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

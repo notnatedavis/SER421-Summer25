@@ -4,15 +4,12 @@
  * ndavispe , 7/4/25
  * 
  * src\main\java\com\example\surveyapi\dto\SurveyInstanceDTO.java
- * UPDATE
  */
 package com.example.surveyapi.dto;
 
 // imports
 import com.example.surveyapi.model.SurveyInstance;
-
 import com.example.surveyapi.model.SurveyInstanceState;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -13,16 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import jakarta.validation.Valid;
-import com.example.surveyapi.dto.AnswerDTO;
-import com.example.surveyapi.dto.ApiResponse;
-import com.example.surveyapi.dto.CreateAnswerRequest;
-
 import com.example.surveyapi.dto.*;
 import com.example.surveyapi.model.Answer;
 import com.example.surveyapi.service.AnswerService;

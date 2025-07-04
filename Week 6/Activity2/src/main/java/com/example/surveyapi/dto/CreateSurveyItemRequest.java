@@ -4,7 +4,6 @@
  * ndavispe , 7/4/25
  * 
  * src\main\java\com\example\surveyapi\dto\CreateSurveyItemRequest.java
- * UPDATE
  */
 package com.example.surveyapi.dto;
 
